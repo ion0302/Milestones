@@ -20,3 +20,11 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+
+
+class BlogCommentsSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Blog
+        fields = '__all__'
