@@ -51,7 +51,6 @@ class AddBlogView(GenericAPIView):
             title=validated_data['title'],
             slug=validated_data['slug'],
             body=validated_data['body'],
-            posted=validated_data['posted'],
             category=validated_data['category'],
             enabled=validated_data['enabled'],
         )
