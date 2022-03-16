@@ -60,6 +60,20 @@ class AddBlogView(GenericAPIView):
         return Response(BlogSerializer(blog).data)
 
 
-class CommentViewSet(viewsets.ModelViewSet):
+class AddCommentView(GenericAPIView):
     serializer_class = CommentSerializer
-    queryset = Comment.objects.all()
+
+    permission_classes = (AllowAny,)
+    authentication_classes = ()
+
+    @serialize_decorator(CommentSerializer)
+    def post(self, request):
+        validated_data = request.serializer.validated_data
+
+        comment = Comment.objects.create(
+            blog=validated_data['blog'],
+            text=validated_data['text'],
+        )
+        comment.save()
+
+        return Response(CommentSerializer(comment).data)
