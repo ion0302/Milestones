@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from drf_util.decorators import serialize_decorator
 
-from apps.blog.models import Category, Blog
-from apps.blog.serializers import CategorySerializer, BlogSerializer
+from apps.blog.models import Category, Blog, Comment
+from apps.blog.serializers import CategorySerializer, BlogSerializer, CommentSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -58,3 +58,8 @@ class AddBlogView(GenericAPIView):
         blog.save()
 
         return Response(BlogSerializer(blog).data)
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
